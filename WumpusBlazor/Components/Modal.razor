@@ -1,0 +1,32 @@
+﻿<div class="wb-container position-middle fade-in" b-mwsrhhqq2g="">
+    <div class="blazored-modal-focus-trap">
+        <div class="wb-modal size-medium" style="border-color: @Color" role="dialog" aria-modal="true" b-mwsrhhqq2g="">
+            <div class="wb-modal-header" style="background-color: @Color" b-mwsrhhqq2g="">
+                <h3 class="wb-modal-title" b-mwsrhhqq2g="">@Title</h3>
+                <button type="button" class="wb-modal-close" aria-label="close" b-mwsrhhqq2g="" @onclick="Cancel"><span b-mwsrhhqq2g="">×</span></button>
+            </div>
+            <div class="wb-modal-content" b-mwsrhhqq2g="">
+                @Message
+            </div>
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+        </div>
+    </div>
+</div>
+
+@using WumpusEngine;
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    [Parameter] public string Color { get; set; } = "dodgerblue";
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private async Task Cancel()
+    {
+        await BlazoredModal.CancelAsync();
+    }
+}

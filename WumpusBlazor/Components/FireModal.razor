@@ -1,0 +1,7 @@
+﻿<Modal Color="dodgerblue" Title="@BlazoredModal.Title" Message="You have but a single arrow. Press an arrow key to fire in that direction or ESC to continue exploring." />
+
+@using WumpusEngine;
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+}

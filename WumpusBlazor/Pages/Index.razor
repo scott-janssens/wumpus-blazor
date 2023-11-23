@@ -1,0 +1,11 @@
+﻿@page "/"
+
+@using WumpusBlazor.Components;
+@using WumpusEngine;
+
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Wumpus</PageTitle>
+
+<Board Map=@Engine.Map />
+<NavMenu Engine="Engine" />

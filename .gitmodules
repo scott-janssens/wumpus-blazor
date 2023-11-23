@@ -1,0 +1,3 @@
+[submodule "WumpusEngine"]
+	path = WumpusEngine
+	url = https://github.com/scott-janssens/wumpus-engine

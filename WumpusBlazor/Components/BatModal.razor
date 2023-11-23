@@ -1,0 +1,17 @@
+﻿<Modal Color="black" Title="@BlazoredModal.Title" Message="@Message" />
+
+@using WumpusEngine;
+@using WumpusEngine.Events;
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    [Parameter] public BatMoved BatMoved { get; set; } = default!;
+    public string Message { get; set; } = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Message = "You have encountered a bat who picks you up and drops you elsewhere...";
+    }
+}

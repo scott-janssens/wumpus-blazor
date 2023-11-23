@@ -1,0 +1,66 @@
+﻿<Modal Color="@_color" Title="@_title" Message="@Message"> @* Message="@Engine.EndGameMessage"> *@
+    <div class="centeringContainer">
+        <button @ref="btnNewGame" class="@_btnClass" @onclick="NewGame">New Game</button>
+    </div>
+</Modal>
+
+@using WumpusEngine;
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    //[Parameter] public Engine Engine { get; set; } = default!;
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public GameState GameState { get; set; } = default!;
+
+    private ElementReference btnNewGame;
+    private string _title = string.Empty;
+    private string _color = string.Empty;
+    private string _btnClass = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        switch (GameState)
+        {
+            case GameState.Won:
+                _color = "forestgreen";
+                _title = "Victory";
+                _btnClass = "button-green";
+                break;
+            case GameState.Eaten:
+                _color = "orangered";
+                _title = "Game Over";
+                _btnClass = "button-red";
+                break;
+            case GameState.Missed:
+                _color = "orangered";
+                _title = "Game Over";
+                _btnClass = "button-red";
+                break;
+            case GameState.Pit:
+                _color = "sandybrown";
+                _title = "Game Over";
+                _btnClass = "button-brown";
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            btnNewGame.FocusAsync();
+        }
+    }
+
+    private async Task NewGame()
+    {
+        // Engine.StartNewGame();
+        await BlazoredModal.CloseAsync();
+    }
+}

@@ -1,0 +1,85 @@
+﻿@using Lea;
+@using WumpusBlazor.Components
+@using WumpusEngine;
+
+@inject IJSRuntime jsRuntime
+
+<div class="help relative">
+    <img class="title" src="/assets/titleh.png" alt="Title Wumpus" />
+    <div>
+        <p>
+            You are a hunter exploring caverns in search of the fearsome Wumpus.
+            If you enter the same cavern as the Wumpus, the Wumpus will eat you. There are clues to where the Wumpus is in the form
+            of blood splatters within two spaces of the Wumpus (not including tunnels).
+            Beware of giant bats which can carry you to random locations and bottomless pits.
+        </p>
+        <p>
+            Use the ARROW keys to move. When you are adjacent to where you have deduced the Wumpus must be, press
+            SPACE to fire your arrow. You have only one arrow with which to kill the Wumpus.
+        </p>
+    </div>
+    <div class="help-grid">
+        <div class="relative">
+            <div>
+                <Player size="100" />
+            </div>
+            <div class="help-grid-tag">
+                You
+            </div>
+        </div>
+        <div class="relative">
+            <div>
+                <Cell Cavern="@_pitWarnCavern" Size="80" Background="lemonchiffon" />
+            </div>
+            <div class="help-grid-tag">
+                Bottomless Pit Adjacent
+            </div>
+        </div>
+        <div class="relative">
+            <div>
+                <Bat size="100" />
+            </div>
+            <div class="help-grid-tag">
+                Giant Bat
+            </div>
+        </div>
+        <div class="relative">
+            <div>
+                <Cell Cavern="@_pitCavern" Size="80" Background="lemonchiffon" />
+            </div>
+            <div class="help-grid-tag">
+                Bottomless Pit
+            </div>
+        </div>
+        <div class="relative">
+            <div>
+                <Wumpus size="100" />
+            </div>
+            <div class="help-grid-tag">
+                Fearsome Wumpus
+            </div>
+        </div>
+        <div class="relative">
+            <div>
+                <Cell Cavern="@_bloodCavern" Size="80" Background="lemonchiffon" />
+            </div>
+            <div class="help-grid-tag">
+                Blood Spattered Cavern
+            </div>
+        </div>
+    </div>
+    <div class="centeringContainer">
+        <div class="gameControls">
+            <select class="selectbox" value="@Difficulty" @onchange="SetDifficulty">
+                <option value="0">Easy</option>
+                <option value="1">Normal</option>
+                <option value="2">Hard</option>
+            </select>
+            <button id="newGameBtn" @ref="newGameBtn" class="button-green" @onclick="NewGame">
+                New Game
+            </button>
+
+            <a class="code-link" target="_blank" href="https://github.com/scott-janssens/wumpus-blazor">Source Code</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+﻿@using WumpusEngine;
+<div class="cell">
+    @if (@Cavern.IsRevealed)
+    {
+        if (@Cavern.IsCave)
+        {
+            <svg width=@Size height=@Size xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150, 150">
+                <path d=@SvgHelper.DescribeArc(75, 75, 65, 0, 359.9) stroke=@_cellColor fill="none" stroke-width="5" />
+
+                @if (@Cavern.IsAdjacentPit)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 69, 0, 359.9) stroke=@_cellColor fill="none" stroke-width="5" stroke-dasharray="12 6" />
+                    <path d=@SvgHelper.DescribeArc(75, 75, 73, 0, 359.9) stroke=@_cellColor fill="none" stroke-width="5" />
+                }
+
+                @if (@Cavern.North != null)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 65, -15, 15) stroke=@Background fill="none" stroke-width="22" />
+                    <line x1="60" y1="0" x2="60" y2="14" stroke=@_cellColor stroke-width="5" />
+                    <line x1="90" y1="0" x2="90" y2="14" stroke=@_cellColor stroke-width="5" />
+                }
+
+                @if (@Cavern.East != null)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 65, 75, 105) stroke=@Background fill="none" stroke-width="22" />
+                    <line x1="135" y1="60" x2="150" y2="60" stroke=@_cellColor stroke-width="5" />
+                    <line x1="135" y1="90" x2="150" y2="90" stroke=@_cellColor stroke-width="5" />
+                }
+
+                @if (@Cavern.South != null)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 65, 165, 195) stroke=@Background fill="none" stroke-width="22" />
+                    <line x1="60" y1="135" x2="60" y2="150" stroke=@_cellColor stroke-width="5" />
+                    <line x1="90" y1="135" x2="90" y2="150" stroke=@_cellColor stroke-width="5" />
+                }
+
+                @if (@Cavern.West != null)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 65, 255, 285) stroke=@Background fill="none" stroke-width="22" />
+                    <line x1="0" y1="60" x2="14" y2="60" stroke=@_cellColor stroke-width="5" />
+                    <line x1="0" y1="90" x2="14" y2="90" stroke=@_cellColor stroke-width="5" />
+                }
+
+                @if (@Cavern.IsPit)
+                {
+                    <path d=@SvgHelper.DescribeArc(75, 75, 57, 0, 359.9) stroke="green" fill="none" stroke-width="5" />
+                }
+
+                @if (@Cavern.HasBlood)
+                {
+                    <circle cx="75" cy="75" r="40" stroke="red" fill="red" />
+                }
+
+                @if (@Cavern.HasWumpus)
+                {
+                    <Wumpus />
+                }
+
+                @if (@Cavern.HasBat)
+                {
+                    <Bat />
+                }
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player />
+                }
+            </svg>
+        }
+        else if (@Cavern.NumExits == 4)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path d=@SvgHelper.DescribeArc(0, 0, 60, 90, 180) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(0, 0, 90, 90, 180) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(150, 150, 60, 270, 0) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(150, 150, 90, 270, 0) stroke=@_cellColor fill='none' stroke-width='5' />
+
+                @if (Cavern.PlayerDirection != null)
+                {
+                    if (Cavern.PlayerDirection == Direction.North || @Cavern.PlayerDirection == Direction.West)
+                    {
+                        <Player offsetX="-14" offsetY="-16" />
+                    }
+                    else
+                    {
+                        <Player offsetX="-2" offsetY="0" />
+                    }
+                }
+            </svg>
+        }
+        else if (@Cavern.North != null && @Cavern.South != null)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <line x1="60" y1="0" x2="60" y2="150" stroke=@_cellColor stroke-width="5" />
+                <line x1="90" y1="0" x2="90" y2="150" stroke=@_cellColor stroke-width="5" />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player />
+                }
+            </svg>
+        }
+
+        else if (@Cavern.East != null && @Cavern.West != null)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="60" x2="150" y2="60" stroke=@_cellColor stroke-width="5" />
+                <line x1="0" y1="90" x2="150" y2="90" stroke=@_cellColor stroke-width="5" />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player />
+                }
+            </svg>
+        }
+        else if (@Cavern.North != null && @Cavern.East != null)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path d=@SvgHelper.DescribeArc(150, 0, 60, 180, 270) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(150, 0, 90, 180, 270) stroke=@_cellColor fill='none' stroke-width='5' />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player offsetX="-14" offsetY="-2" />
+                }
+            </svg>
+        }
+        else if (@Cavern.South != null && @Cavern.East != null)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path d=@SvgHelper.DescribeArc(150, 150, 60, 270, 0) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(150, 150, 90, 270, 0) stroke=@_cellColor fill='none' stroke-width='5' />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player offsetX="-14" offsetY="-14" />
+                }
+            </svg>
+        }
+        else if (@Cavern.South != null && @Cavern.West != null)
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path d=@SvgHelper.DescribeArc(0, 150, 60, 0, 90) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(0, 150, 90, 0, 90) stroke=@_cellColor fill='none' stroke-width='5' />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player offsetX="-2" offsetY="-14" />
+                }
+            </svg>
+        }
+        else
+        {
+            <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path d=@SvgHelper.DescribeArc(0, 0, 60, 90, 180) stroke=@_cellColor fill='none' stroke-width='5' />
+                <path d=@SvgHelper.DescribeArc(0, 0, 90, 90, 180) stroke=@_cellColor fill='none' stroke-width='5' />
+
+                @if (@Cavern.PlayerDirection != null)
+                {
+                    <Player offsetX="-2" offsetY="-2" />
+                }
+            </svg>
+        }
+    }
+</div>

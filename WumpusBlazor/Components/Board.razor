@@ -1,0 +1,14 @@
+﻿@using Lea;
+@using WumpusEngine;
+@using WumpusEngine.Events;
+
+<div class="board-grid">
+    @foreach (var cavern in Map.Caverns)
+    {
+        <Cell Cavern=@cavern />
+    }
+</div>
+
+@code {
+    [Parameter] public Map Map { get; set; } = default!;
+}
